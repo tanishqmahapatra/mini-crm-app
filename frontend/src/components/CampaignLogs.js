@@ -10,7 +10,7 @@ const CampaignLogs = ({ campaignId }) => {
     useEffect(() => {
         const fetchLogs = async () => {
             try {
-                const response = await axios.get(`http://localhost:3001/api/campaign/${campaignId}/logs`);
+                const response = await axios.get(`https://mini-crm-app-backend.onrender.com/api/campaign/${campaignId}/logs`);
                 setLogs(response.data);
             } catch (error) {
                 console.error(`Error fetching logs for campaign ${campaignId}:`, error);
