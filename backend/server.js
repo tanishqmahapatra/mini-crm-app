@@ -55,9 +55,15 @@ app.use(express.json());
 // Connect to MongoDB
 const MONGODB_URI = process.env.MONGODB_URI;
 
-mongoose.connect(process.env.MONGODB_URI || 'mongodb+srv://acreed064:JVBJqxmQuZwDE1Wl@cluster0.nygli.mongodb.net/crm_database?retryWrites=true&w=majority', {
+mongoose.connect(MONGODB_URI, {
   useNewUrlParser: true,
-  useUnifiedTopology: true
+  useUnifiedTopology: true,
+}).then(() => {
+  console.log('MongoDB connected successfully');
+}).catch((err) => {
+  console.error('MongoDB connection error:', err);
+});
+
 
 }).then(() => {
   console.log('MongoDB connected successfully');
