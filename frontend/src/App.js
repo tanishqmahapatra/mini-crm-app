@@ -48,7 +48,7 @@ const App = () => {
                 {user && (
                     <nav>
                         <p>Welcome, {user.displayName}!</p>
-                        <button onClick={() => axios.get('http://localhost:3001/auth/logout', { withCredentials: true }).then(() => setUser(null))}>
+                        <button onClick={() => axios.get('https://mini-crm-app-backend.onrender.com/auth/logout', { withCredentials: true }).then(() => setUser(null))}>
                             Logout
                         </button>
                     </nav>
@@ -78,7 +78,7 @@ const App = () => {
                     </>
                 ) : (
                     <div className="login-container">
-                        <button className="btn" onClick={() => (window.location.href = 'http://localhost:3001/auth/google')}>
+                        <button className="btn" onClick={() => (window.location.href = 'https://mini-crm-app-backend.onrender.com/auth/google')}>
                             Login with Google
                         </button>
                     </div>
