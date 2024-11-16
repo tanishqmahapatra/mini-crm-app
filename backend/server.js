@@ -45,7 +45,7 @@ app.get('/get-data', async (req, res) => {
 
 // Enable CORS for all routes
 app.use(cors({
-    origin: 'https://mini-crm-app-frontend.onrender.com', // Allow frontend to connect
+    origin: 'http://localhost:3000', // Allow frontend to connect
     credentials: true, // Allow cookies to be sent cross-origin
 }));
 
