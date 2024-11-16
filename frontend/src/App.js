@@ -12,24 +12,23 @@ const App = () => {
 
     // Fetch authentication status
     useEffect(() => {
-        const fetchAuthStatus = async () => {
-            try {
-                const response = await axios.get('https://mini-crm-app-backend.onrender.com/auth/status', { withCredentials: true });
-                if (response.data.loggedIn) {
-                    setUser(response.data.user);
-                } else {
-                    setUser(null);
-                }
-            } catch (error) {
-                console.error('Error checking auth status:', error);
-            } finally {
-                setLoading(false);
+    const fetchAuthStatus = async () => {
+        try {
+            const response = await axios.get('https://mini-crm-app-backend.onrender.com/auth/status', { withCredentials: true });
+            if (response.data.loggedIn) {
+                setUser(response.data.user);
+            } else {
+                setUser(null);
             }
-        };
+        } catch (error) {
+            console.error('Error checking auth status:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
 
-        fetchAuthStatus();
-    }, []);
-
+    fetchAuthStatus();
+}, []);
     // Fetch campaigns
     const fetchCampaigns = async () => {
         try {
