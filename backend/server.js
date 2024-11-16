@@ -55,7 +55,7 @@ app.use(express.json());
 // Connect to MongoDB
 const MONGODB_URI = process.env.MONGODB_URI;
 
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/crm_database', {
+mongoose.connect(process.env.MONGODB_URI || 'mongodb+srv://acreed064:JVBJqxmQuZwDE1Wl@cluster0.nygli.mongodb.net/crm_database?retryWrites=true&w=majority', {
   useNewUrlParser: true,
   useUnifiedTopology: true
 
