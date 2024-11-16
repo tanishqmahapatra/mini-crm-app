@@ -4,7 +4,7 @@ import './App.css';
 import AudienceSegmentForm from './components/AudienceSegmentForm';
 import CampaignForm from './components/CampaignForm';
 import CampaignList from './components/CampaignList';
-import { auth, googleProvider } from '../firebase'; // import firebase functions
+import { auth, googleProvider } from './firebase'; // import firebase functions
 
 
 const App = () => {
