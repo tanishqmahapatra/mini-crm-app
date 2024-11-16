@@ -22,7 +22,7 @@ const AudienceSegmentForm = () => {
     // Function to preview audience size
     const previewAudienceSize = async () => {
         try {
-            const response = await axios.post('http://localhost:3001/api/audience/preview', { conditions });
+            const response = await axios.post('https://mini-crm-app-backend.onrender.com/api/audience/preview', { conditions });
             setAudienceSize(response.data.audienceSize);
         } catch (error) {
             console.error('Error calculating audience size:', error);
