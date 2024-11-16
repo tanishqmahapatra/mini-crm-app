@@ -11,7 +11,7 @@ const CampaignDetail = ({ campaign }) => {
     useEffect(() => {
         const fetchStats = async () => {
             try {
-                const response = await axios.get(`http://localhost:3001/api/campaigns/${campaign._id}/stats`);
+                const response = await axios.get(`https://mini-crm-app-backend.onrender.com/api/campaigns/${campaign._id}/stats`);
                 setStats(response.data);
                 console.log('Stats loaded successfully:', response.data);
             } catch (error) {
@@ -22,7 +22,7 @@ const CampaignDetail = ({ campaign }) => {
 
         const fetchLogs = async () => {
             try {
-                const response = await axios.get(`http://localhost:3001/api/campaigns/${campaign._id}/logs`);
+                const response = await axios.get(`https://mini-crm-app-backend.onrender.com/api/campaigns/${campaign._id}/logs`);
                 setLogs(response.data);
                 console.log('Logs loaded successfully:', response.data);
             } catch (error) {
