@@ -104,7 +104,7 @@ app.get('/auth/google/callback',
     passport.authenticate('google', { failureRedirect: '/login' }),
     (req, res) => {
         // Redirect to frontend after successful login
-        res.redirect('https://mini-crm-app-frontend.onrender.com');
+        res.redirect('http://localhost:3000');
     }
 );
 
