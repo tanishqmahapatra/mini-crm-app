@@ -7,23 +7,38 @@ const cors = require('cors');
 const passport = require('passport');
 const session = require('express-session');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
-const redis = require('redis');
 const customerRoutes = require('./routes/customerRoutes.js');
 const orderRoutes = require('./routes/orderRoutes.js');
 const audienceRoutes = require('./routes/audienceRoutes');
 const campaignRoutes = require('./routes/campaignRoutes');
 const messageRoutes = require('./routes/messageRoutes');
+const redisClient = require('./redisClient'); // Import your redis client
+
 
 const app = express();
 
 
-const client = redis.createClient({
-  url: process.env.REDIS_URL  // This will read the Redis URL from the environment variable
+// Example route to set data in Redis
+app.get('/set-data', async (req, res) => {
+  try {
+    await redisClient.set('my-key', 'hello world');
+    res.send('Data set in Redis');
+  } catch (err) {
+    console.error('Error setting data in Redis:', err);
+    res.status(500).send('Error setting data in Redis');
+  }
 });
 
-client.connect()
-  .then(() => console.log('Connected to Redis'))
-  .catch(err => console.error('Redis connection error:', err));
+// Example route to get data from Redis
+app.get('/get-data', async (req, res) => {
+  try {
+    const value = await redisClient.get('my-key');
+    res.send(`Stored value: ${value}`);
+  } catch (err) {
+    console.error('Error getting data from Redis:', err);
+    res.status(500).send('Error getting data from Redis');
+  }
+});
 
 
 // Enable CORS for all routes
