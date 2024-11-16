@@ -5,7 +5,7 @@ import AudienceSegmentForm from './components/AudienceSegmentForm';
 import CampaignForm from './components/CampaignForm';
 import CampaignList from './components/CampaignList';
 import { auth, googleProvider } from './firebase'; // import firebase functions
-
+import { signInWithPopup } from 'firebase/auth';
 
 const App = () => {
     const [user, setUser] = useState(null);
@@ -14,9 +14,11 @@ const App = () => {
 
     const handleGoogleLogin = async () => {
         try {
-            const result = await auth.signInWithPopup(googleProvider);
-            const user = result.user;
-            setUser(user); // Store the logged-in user
+            const result = await signInWithPopup(auth, googleProvider);
+      
+      // The signed-in user info
+      const user = result.user;
+      setUser(user); // Store the logged-in user
             
         } catch (error) {
             console.error(error.message);
