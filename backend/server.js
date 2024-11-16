@@ -7,7 +7,7 @@ const cors = require('cors');
 const passport = require('passport');
 const session = require('express-session');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
-
+const redis = require('redis');
 const customerRoutes = require('./routes/customerRoutes.js');
 const orderRoutes = require('./routes/orderRoutes.js');
 const audienceRoutes = require('./routes/audienceRoutes');
@@ -16,9 +16,9 @@ const messageRoutes = require('./routes/messageRoutes');
 
 const app = express();
 
-const redis = require('redis');
+
 const client = redis.createClient({
-  url: process.env.REDIS_URL // This gets the Redis URL from Render's environment variables
+  url: process.env.REDIS_URL  // This will read the Redis URL from the environment variable
 });
 
 client.connect()
