@@ -91,9 +91,10 @@ const App = () => {
                     </>
                 ) : (
                     <div className="login-container">
-                        <button onClick={() => (window.location.href = 'https://mini-crm-app-backend.onrender.com/auth/google')}>
-                            Login with Google
-                        </button>
+                       <button onClick={() => window.location.replace('https://mini-crm-app-backend.onrender.com/auth/google')}>
+                           Login with Google
+                       </button>
+ 
                     </div>
                 )}
             </div>
