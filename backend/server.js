@@ -70,7 +70,7 @@ app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: true } // Set to true in production with HTTPS
+    cookie: { secure: process.env.NODE_ENV === 'production' } // Set to true in production with HTTPS
 }));
 
 // Initialize Passport and session
