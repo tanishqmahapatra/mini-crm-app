@@ -11,7 +11,7 @@ const CampaignForm = ({ onCampaignCreated }) => {
         e.preventDefault();
 
         try {
-            const response = await axios.post('http://localhost:3001/api/campaigns', {
+            const response = await axios.post('https://mini-crm-app-backend.onrender.com/api/campaigns', {
                 name,
                 message,
                 segmentConditions: { totalSpending: { $gt: 10000 } }, // Example condition
