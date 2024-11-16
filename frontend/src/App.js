@@ -19,6 +19,7 @@ const App = () => {
             const result = await auth.signInWithPopup(googleProvider);
             const user = result.user;
             setUser(user); // Store the logged-in user
+            setLoading(false)
         } catch (error) {
             console.error(error.message);
         }
