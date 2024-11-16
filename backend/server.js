@@ -13,7 +13,6 @@ const audienceRoutes = require('./routes/audienceRoutes');
 const campaignRoutes = require('./routes/campaignRoutes');
 const messageRoutes = require('./routes/messageRoutes');
 const redisClient = require('./redisClient'); // Import your redis client
-const MONGODB_URI = "mongodb+srv://acreed064:JVBJqxmQuZwDE1Wl@cluster0.nygli.mongodb.net/crm_database?retryWrites=true&w=majority";
 
 
 
@@ -54,6 +53,8 @@ app.use(cors({
 app.use(express.json());
 
 // Connect to MongoDB
+const MONGODB_URI = process.env.MONGO_URI;
+
 mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log('Connected to MongoDB'))
     .catch(err => console.error('MongoDB connection error:', err));
