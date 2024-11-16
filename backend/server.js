@@ -45,7 +45,7 @@ app.get('/get-data', async (req, res) => {
 
 // Enable CORS for all routes
 app.use(cors({
-    origin: 'http://localhost:3000', // Allow frontend to connect
+    origin: 'https://mini-crm-app-backend.onrender.com', // Allow frontend to connect
     credentials: true, // Allow cookies to be sent cross-origin
 }));
 
@@ -82,7 +82,7 @@ app.use(passport.session());
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: 'http://localhost:3001/auth/google/callback', // Adjust as needed
+    callbackURL: 'https://mini-crm-app-backend.onrender.com/auth/google/callback', // Adjust as needed
 }, (accessToken, refreshToken, profile, done) => {
     return done(null, profile); // This can be extended to save user info in the database if required
 }));
