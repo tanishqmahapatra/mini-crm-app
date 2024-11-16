@@ -14,7 +14,7 @@ const App = () => {
     useEffect(() => {
         const fetchAuthStatus = async () => {
             try {
-                const response = await axios.get('http://localhost:3001/auth/status', { withCredentials: true });
+                const response = await axios.get('https://mini-crm-app-backend.onrender.com/auth/status', { withCredentials: true });
                 if (response.data.loggedIn) {
                     setUser(response.data.user);
                 } else {
@@ -30,7 +30,7 @@ const App = () => {
 
     const fetchCampaigns = async () => {
         try {
-            const response = await axios.get('http://localhost:3001/api/campaigns');
+            const response = await axios.get('https://mini-crm-app-backend.onrender.com/api/campaigns');
             setCampaigns(response.data);
         } catch (error) {
             console.error('Error fetching campaigns:', error);
