@@ -10,8 +10,6 @@ import { auth, googleProvider } from './firebase'; // import firebase functions
 const App = () => {
     const [user, setUser] = useState(null);
     const [campaigns, setCampaigns] = useState([]);
-    const [loading, setLoading] = useState(true);
-
     // Fetch authentication status
 
     const handleGoogleLogin = async () => {
@@ -19,7 +17,7 @@ const App = () => {
             const result = await auth.signInWithPopup(googleProvider);
             const user = result.user;
             setUser(user); // Store the logged-in user
-            setLoading(false)
+            
         } catch (error) {
             console.error(error.message);
         }
@@ -44,11 +42,6 @@ const App = () => {
             fetchCampaigns();
         }
     }, [user]);
-
-    // Render loading screen while checking authentication
-    if (loading) {
-        return <div className="loading-screen">Loading...</div>;
-    }
 
     return (
         <div>
