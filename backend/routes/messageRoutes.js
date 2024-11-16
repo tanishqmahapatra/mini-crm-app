@@ -39,7 +39,7 @@ router.post('/send', async (req, res) => {
 
             // Call the Delivery Receipt API for this message log entry
             try {
-                await axios.post(`http://localhost:3001/api/messages/delivery/${savedLog._id}`);
+                await axios.post(`https://mini-crm-app-backend.onrender.com/api/messages/delivery/${savedLog._id}`);
                 console.log(`Delivery receipt updated for logId: ${savedLog._id}`);
             } catch (deliveryError) {
                 console.error(`Failed to update delivery status for logId: ${savedLog._id}`, deliveryError.message);

@@ -18,7 +18,7 @@ async function updatePendingDeliveries() {
         // Loop through each pending message and call the Delivery Receipt API
         for (const log of pendingLogs) {
             try {
-                const response = await axios.post(`http://localhost:3001/api/messages/delivery/${log._id}`);
+                const response = await axios.post(`https://mini-crm-app-backend.onrender.com/api/messages/delivery/${log._id}`);
                 console.log(`Delivery status updated for logId: ${log._id} - Status: ${response.data.status}`);
             } catch (error) {
                 console.error(`Failed to update delivery status for logId: ${log._id}`, error.message);

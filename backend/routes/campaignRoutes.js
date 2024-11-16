@@ -45,7 +45,7 @@ router.post('/', async (req, res) => {
 
             // Step 4: Attempt to call the delivery receipt API
             try {
-                await axios.post(`http://localhost:3001/api/campaigns/${logEntry._id}/delivery`);
+                await axios.post(`https://mini-crm-app-backend.onrender.com/api/campaigns/${logEntry._id}/delivery`);
             } catch (deliveryError) {
                 console.error(`Failed to call delivery receipt for message ID ${logEntry._id}:`, deliveryError.message);
             }

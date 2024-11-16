@@ -4,7 +4,7 @@ const redis = require('redis');
 const Customer = require('./models/Customer'); // Import the Customer model
 
 // Initialize Redis Subscriber
-const redisSubscriber = redis.createClient({ url: 'redis://localhost:6379' });
+const redisSubscriber = redis.createClient({ url: 'redis://red-css843hu0jms73e79m40:6379' });
 
 // Connect to Redis
 redisSubscriber.connect().catch(console.error);
