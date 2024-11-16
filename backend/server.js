@@ -13,9 +13,17 @@ const audienceRoutes = require('./routes/audienceRoutes');
 const campaignRoutes = require('./routes/campaignRoutes');
 const messageRoutes = require('./routes/messageRoutes');
 const redisClient = require('./redisClient'); // Import your redis client
+const mongoURI = "mongodb+srv://acreed064:JVBJqxmQuZwDE1Wl@cluster0.nygli.mongodb.net/crm_database?retryWrites=true&w=majority";
+
 
 
 const app = express();
+
+const mongoURI = process.env.MONGO_URI;
+
+mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => console.log('Connected to MongoDB Atlas'))
+  .catch(err => console.log('MongoDB connection error:', err));
 
 
 // Example route to set data in Redis
