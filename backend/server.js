@@ -57,9 +57,8 @@ const MONGODB_URI = process.env.MONGODB_URI;
 
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/crm_database', {
   useNewUrlParser: true,
-  useUnifiedTopology: true,
-  useCreateIndex: true,
-  useFindAndModify: false
+  useUnifiedTopology: true
+
 }).then(() => {
   console.log('MongoDB connected successfully');
 }).catch((err) => {
