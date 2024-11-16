@@ -1,33 +1,34 @@
-// src/App.js
-
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './App.css'; // Ensure this imports the updated CSS you provided earlier
+import './App.css';
 import AudienceSegmentForm from './components/AudienceSegmentForm';
 import CampaignForm from './components/CampaignForm';
 import CampaignList from './components/CampaignList';
+import { auth, googleProvider } from './firebase'; // import firebase functions
+
 
 const App = () => {
     const [user, setUser] = useState(null);
     const [campaigns, setCampaigns] = useState([]);
+    const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        const fetchAuthStatus = async () => {
-            try {
-                const response = await axios.get('https://mini-crm-app-backend.onrender.com/auth/status', { withCredentials: true });
-                if (response.data.loggedIn) {
-                    setUser(response.data.user);
-                } else {
-                    setUser(null);
-                }
-            } catch (error) {
-                console.error('Error checking auth status:', error);
-            }
-        };
+    // Fetch authentication status
 
-        fetchAuthStatus();
-    }, []);
+    const handleGoogleLogin = async () => {
+        try {
+            const result = await auth.signInWithPopup(googleProvider);
+            const user = result.user;
+            setUser(user); // Store the logged-in user
+        } catch (error) {
+            console.error(error.message);
+        }
+    };
 
+    const handleLogout = async () => {
+        await auth.signOut();
+        setUser(null); // Clear the user state
+    };
+    // Fetch campaigns
     const fetchCampaigns = async () => {
         try {
             const response = await axios.get('https://mini-crm-app-backend.onrender.com/api/campaigns');
@@ -38,8 +39,15 @@ const App = () => {
     };
 
     useEffect(() => {
-        fetchCampaigns();
-    }, []);
+        if (user) {
+            fetchCampaigns();
+        }
+    }, [user]);
+
+    // Render loading screen while checking authentication
+    if (loading) {
+        return <div className="loading-screen">Loading...</div>;
+    }
 
     return (
         <div>
@@ -48,7 +56,10 @@ const App = () => {
                 {user && (
                     <nav>
                         <p>Welcome, {user.displayName}!</p>
-                        <button onClick={() => axios.get('https://mini-crm-app-backend.onrender.com/auth/logout', { withCredentials: true }).then(() => setUser(null))}>
+                        <button
+                            onClick={handleLogout
+                            }
+                        >
                             Logout
                         </button>
                     </nav>
@@ -58,19 +69,14 @@ const App = () => {
             <div className="container">
                 {user ? (
                     <>
-                        {/* Audience Segment Form */}
                         <div className="card">
                             <h2>Create Audience Segment</h2>
                             <AudienceSegmentForm />
                         </div>
-
-                        {/* Campaign Form */}
                         <div className="card">
                             <h2>Create a New Campaign</h2>
                             <CampaignForm onCampaignCreated={fetchCampaigns} />
                         </div>
-
-                        {/* Campaign History */}
                         <div className="card">
                             <h2>Campaign History & Statistics</h2>
                             <CampaignList campaigns={campaigns} />
@@ -78,9 +84,10 @@ const App = () => {
                     </>
                 ) : (
                     <div className="login-container">
-                        <button className="btn" onClick={() => (window.location.href = 'https://mini-crm-app-backend.onrender.com/auth/google')}>
-                            Login with Google
-                        </button>
+                       <button onClick={handleGoogleLogin}>
+                           Login with Google
+                       </button>
+ 
                     </div>
                 )}
             </div>
