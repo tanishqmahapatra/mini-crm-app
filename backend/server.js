@@ -45,7 +45,7 @@ app.get('/get-data', async (req, res) => {
 
 // Enable CORS for all routes
 app.use(cors({
-    origin: 'https://mini-crm-app-backend.onrender.com', // Allow frontend to connect
+    origin: 'https://mini-crm-app-frontend.onrender.com', // Allow frontend to connect
     credentials: true, // Allow cookies to be sent cross-origin
 }));
 
@@ -103,7 +103,7 @@ app.get('/auth/google/callback',
     passport.authenticate('google', { failureRedirect: '/login' }),
     (req, res) => {
         // Redirect to frontend after successful login
-        res.redirect('http://localhost:3000/dashboard');
+        res.redirect('https://mini-crm-app-frontend.onrender.com/dashboard');
     }
 );
 
@@ -123,7 +123,7 @@ app.get('/auth/logout', (req, res) => {
             console.error('Logout error:', err);
             return res.status(500).json({ error: 'Logout failed' });
         }
-        res.redirect('http://localhost:3000');
+        res.redirect('https://mini-crm-app-frontend.onrender.com');
     });
 });
 
