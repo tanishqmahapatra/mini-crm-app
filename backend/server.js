@@ -41,18 +41,17 @@ mongoose
     });
 
 // Set up session handling for Passport
-app.use(
-    session({
-        secret: process.env.SESSION_SECRET,
-        resave: false,
-        saveUninitialized: true,
-        cookie: {
-            secure: process.env.NODE_ENV === 'production', // Secure cookies in production
-            httpOnly: true, // Prevent client-side access
-            sameSite: 'None', // Required for cross-origin requests
-        },
-    })
-);
+app.use(session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+        secure: process.env.NODE_ENV === 'production', // Set to true in production with HTTPS
+        httpOnly: true, // Helps to prevent client-side access to cookies
+        sameSite: 'None', // Important for cross-origin cookies
+        maxAge: 24 * 60 * 60 * 1000 // Set cookie expiration to 1 day
+    }
+}));
 
 // Initialize Passport and session
 app.use(passport.initialize());
