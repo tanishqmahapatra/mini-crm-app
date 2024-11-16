@@ -65,13 +65,6 @@ mongoose.connect(MONGODB_URI, {
 });
 
 
-}).then(() => {
-  console.log('MongoDB connected successfully');
-}).catch((err) => {
-  console.error('MongoDB connection error:', err);
-});
-
-
 // Set up session handling for Passport
 app.use(session({
     secret: process.env.SESSION_SECRET,
