@@ -18,7 +18,7 @@ const app = express();
 
 const redis = require('redis');
 const client = redis.createClient({
-  url: process.env.REDIS_URL // Ensure REDIS_URL is set in Render’s environment settings
+  url: process.env.redis://red-css843hu0jms73e79m40:6379 // Ensure REDIS_URL is set in Render’s environment settings
 });
 
 client.connect()
