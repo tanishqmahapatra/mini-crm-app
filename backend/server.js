@@ -16,6 +16,16 @@ const messageRoutes = require('./routes/messageRoutes');
 
 const app = express();
 
+const redis = require('redis');
+const client = redis.createClient({
+  url: process.env.REDIS_URL // Ensure REDIS_URL is set in Render’s environment settings
+});
+
+client.connect()
+  .then(() => console.log('Connected to Redis'))
+  .catch(err => console.error('Redis connection error:', err));
+
+
 // Enable CORS for all routes
 app.use(cors({
     origin: 'http://localhost:3000', // Allow frontend to connect
