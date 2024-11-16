@@ -1,5 +1,3 @@
-// server.js
-
 require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
@@ -14,40 +12,15 @@ const campaignRoutes = require('./routes/campaignRoutes');
 const messageRoutes = require('./routes/messageRoutes');
 const redisClient = require('./redisClient'); // Import your redis client
 
-
-
 const app = express();
 
-
-
-// Example route to set data in Redis
-app.get('/set-data', async (req, res) => {
-  try {
-    await redisClient.set('my-key', 'hello world');
-    res.send('Data set in Redis');
-  } catch (err) {
-    console.error('Error setting data in Redis:', err);
-    res.status(500).send('Error setting data in Redis');
-  }
-});
-
-// Example route to get data from Redis
-app.get('/get-data', async (req, res) => {
-  try {
-    const value = await redisClient.get('my-key');
-    res.send(`Stored value: ${value}`);
-  } catch (err) {
-    console.error('Error getting data from Redis:', err);
-    res.status(500).send('Error getting data from Redis');
-  }
-});
-
-
 // Enable CORS for all routes
-app.use(cors({
-    origin: 'https://mini-crm-app-frontend.onrender.com', // Allow frontend to connect
-    credentials: true, // Allow cookies to be sent cross-origin
-}));
+app.use(
+    cors({
+        origin: 'https://mini-crm-app-frontend.onrender.com', // Frontend production URL
+        credentials: true, // Allow cookies to be sent cross-origin
+    })
+);
 
 // Parse JSON requests
 app.use(express.json());
@@ -55,22 +28,29 @@ app.use(express.json());
 // Connect to MongoDB
 const MONGODB_URI = process.env.MONGODB_URI;
 
-mongoose.connect(MONGODB_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-}).then(() => {
-  console.log('MongoDB connected successfully');
-}).catch((err) => {
-  console.error('MongoDB connection error:', err);
-});
-
+mongoose
+    .connect(MONGODB_URI, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+    })
+    .then(() => {
+        console.log('MongoDB connected successfully');
+    })
+    .catch((err) => {
+        console.error('MongoDB connection error:', err);
+    });
 
 // Set up session handling for Passport
 app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: process.env.NODE_ENV === 'production' } // Set to true in production with HTTPS
+    cookie: {
+        secure: process.env.NODE_ENV === 'production', // Set to true in production with HTTPS
+        httpOnly: true, // Helps to prevent client-side access to cookies
+        sameSite: 'None', // Important for cross-origin cookies
+        maxAge: 24 * 60 * 60 * 1000 // Set cookie expiration to 1 day
+    }
 }));
 
 // Initialize Passport and session
@@ -78,14 +58,18 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Configure Google OAuth strategy
-passport.use(new GoogleStrategy({
-    clientID: process.env.GOOGLE_CLIENT_ID,
-    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: 'https://mini-crm-app-backend.onrender.com/auth/google/callback',  // Should match exactly with the one in Google Console
-}, (accessToken, refreshToken, profile, done) => {
-    return done(null, profile); // User profile will be saved in session
-}));
-
+passport.use(
+    new GoogleStrategy(
+        {
+            clientID: process.env.GOOGLE_CLIENT_ID,
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+            callbackURL: 'https://mini-crm-app-backend.onrender.com/auth/google/callback', // Backend production URL
+        },
+        (accessToken, refreshToken, profile, done) => {
+            return done(null, profile); // Save user profile in the session
+        }
+    )
+);
 
 // Serialize user into the session
 passport.serializeUser((user, done) => {
@@ -100,7 +84,8 @@ passport.deserializeUser((user, done) => {
 // Google Authentication Routes
 app.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 
-app.get('/auth/google/callback',
+app.get(
+    '/auth/google/callback',
     passport.authenticate('google', { failureRedirect: '/login' }),
     (req, res) => {
         // Redirect to frontend after successful login
