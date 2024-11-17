@@ -1,10 +1,18 @@
 
+
+
 CRM Application
+Overview
+This project is a comprehensive Customer Relationship Management (CRM) application designed to help businesses effectively manage client interactions, monitor sales, and enhance productivity. The app features a user-friendly interface and secure data management capabilities.
 
-A robust Customer Relationship Management (CRM) tool designed to streamline client management and enhance business productivity. This application includes key features such as:
+Features
+Contact Management: Store and organize client data efficiently.
+Sales Tracking: Monitor sales activities with detailed logs and performance metrics.
+Analytics Dashboard: Visualize data through interactive charts and reports for better decision-making.
+User Authentication and Role-Based Access Control: Secure login system and restricted access based on user roles.
+Data Security: Implemented data encryption and safety measures for robust protection.
+Technologies Used
+Backend: NODE JS
+Database: MONGODB
+Frontend: REACT
 
-Contact Management: Easily store and organize client information.
-Sales Tracking: Monitor and analyze sales activities to boost performance.
-Analytics Dashboard: Gain valuable insights with interactive charts and reports.
-User Authentication and Security: Ensure data safety with secure login and role-based access control.
-Built with Python and frameworks such as Django/Flask, and integrated with SQL databases for efficient data handling. Frontend components leverage JavaScript and HTML/CSS for a user-friendly interface.
