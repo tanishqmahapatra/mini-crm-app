@@ -1,5 +1,6 @@
-"# mini-crm-app" 
+
 CRM Application
+
 A robust Customer Relationship Management (CRM) tool designed to streamline client management and enhance business productivity. This application includes key features such as:
 
 Contact Management: Easily store and organize client information.
